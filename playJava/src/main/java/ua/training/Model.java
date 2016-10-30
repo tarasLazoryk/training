@@ -1,4 +1,4 @@
-package ua.playjava;
+package ua.training;
 
 import java.util.Random;
 
