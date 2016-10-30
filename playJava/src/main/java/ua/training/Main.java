@@ -1,4 +1,4 @@
-package ua.playjava;
+package ua.training;
 
 /**
  * Main class. It runs the game.
