@@ -1,13 +1,13 @@
-package ua.training;
+package ua.playjava;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import ua.training.Controller;
-import ua.training.Model;
-import ua.training.View;
+import ua.playjava.Controller;
+import ua.playjava.Model;
+import ua.playjava.View;
 
 import java.io.ByteArrayInputStream;
 import java.util.NoSuchElementException;
