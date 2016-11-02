@@ -1,9 +1,10 @@
 package ua.training;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Model class. It expresses for model in MVC pattern.
+ * Model class. It expresses model in MVC pattern.
  * 
  * @version 1.0 30 Oct 2016
  * @author Taras Lazoryk
@@ -11,78 +12,86 @@ import java.util.Random;
  */
 public class Model {
 	
-	/**MAX_VALUE expreses maximum possible value */
-	public static final int MAX_VALUE = 100;
+	/**
+	 * Expresses upper boundary of the interval.
+	 */	
+	private int upperBoundary;
 	
-	/**MIN_VALUE expreses minimum possible value */
-	public static final int MIN_VALUE = 0;
-	private int maxValue;
-	private int minValue;
+	/**
+	 * Expresses lower boundary of the interval.
+	 */
+	private int lowerBoundary;
 	
-	/**programValue expreses value created by program, which user must guess */
-	private int programValue;
+	/**
+	 * Expresses secret value, which is created randomly
+	 * and which user must to guess.
+	 */
+	private int secretValue;
 	
-	/**userValue expreses value which typed user */
-	private int userValue;
-
-	//constructor
-	public Model() {
-		minValue = MIN_VALUE;
-		maxValue = MAX_VALUE;
-		programValue = createRandomValue();
+	/**
+	 * Contains list of all users tries to guess the secret value.
+	 */
+	private ArrayList<Integer> tryList = new ArrayList<Integer>();
+	
+	/**
+	 * checkValue checks is the integer value equals to secretValue, or not.
+	 * If it is - returns true, and add this value to tryList.
+	 * If not - checks is the value bigger or smaller then secret value.
+	 * If it is bigger then secretValue - upperBoundary assigns value,
+	 * add this value to tryList and return false.
+	 * If it is smaller then secretValue - loweBoundary assigns value,
+	 * add this value to tryList and return false.		
+	 * @param value - the integer value to be checked.
+	 * @return true if value is equal to secretValue and false if it is not.
+	 */
+	public boolean checkValue (int value){
+        if (value == secretValue){
+        	tryList.add(value);
+            return true;
+        } else if (value > secretValue){
+            upperBoundary = value;
+            tryList.add(value);
+        } else {
+            lowerBoundary = value;
+            tryList.add(value);
+        }
+      return false;
+    }
+	
+	public int getUpperBoundary() {
+		return upperBoundary;
 	}
-
-	public int getMinValue() {
-		return minValue;
+	
+	public ArrayList<Integer> getTryList(){
+		return tryList;
 	}
-
-	public int getMaxValue() {
-		return maxValue;
+	public int getLowerBoundary() {
+		return lowerBoundary;
 	}
-
-	public int getUserValue() {
-		return this.userValue;
+	
+	public int getSecretValue(){
+		return secretValue;
 	}
-
-	public void setUserValue(int userValue) {
-		this.userValue = userValue;
+	/**
+	 * Sets the boundaries of the interval.
+	 * @param lowerBoundary - the lower boundary to be set.
+	 * @param upperBoundary - the upper boundary to be set.
+	 */
+	public void setBoundaries(int lowerBoundary, int upperBoundary) {
+		this.lowerBoundary = lowerBoundary;
+		this.upperBoundary = upperBoundary;
 	}
-
-	public void setMaxValue(int maxValue) {
-		if (this.maxValue > maxValue) {
-			this.maxValue = maxValue;
-		}
-	}
-
-	public void setMinValue(int minValue) {
-		if (this.minValue < minValue) {
-			this.minValue = minValue;
-		}
-
-	}
-
-	private int createRandomValue() {
+	
+	/**
+	 * 
+	 * Sets the value of secretValue, between lower boundary and upper boundary of the interval.
+	 *
+	 * @param lowerBoundary - the lower boundary to be used.
+	 * @param upperBoundary - the upper boundary to be used.
+	 */
+	public void setSecretValue(int lowerBoundary, int upperBoundary){
 		Random random = new Random();
 		
-		return random.nextInt(maxValue + 1 - minValue) + minValue;
+		secretValue = random.nextInt(upperBoundary - lowerBoundary - 2 ) + lowerBoundary + 1;
 	}
-
-	public boolean isEqualToProgramValue(int userValue) {
-		return userValue == this.programValue;
-	}
-
-	public boolean isBiggerThenProgramValue(int userValue) {
-		if (userValue > this.programValue) {
-			this.maxValue = userValue - 1;
-			return true;
-		} else {
-			this.minValue = userValue + 1;
-			return false;
-		}
-	}
-
-	public boolean isInBounds(int userValue) {
-		return !((userValue > maxValue) || (userValue < minValue));
-	}
-
 }
