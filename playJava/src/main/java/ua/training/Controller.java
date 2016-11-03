@@ -49,18 +49,18 @@ public class Controller {
 	 */
 	public int inputIntValueWithScanner(Scanner sc) {
 		String scannerValue = "";
-		view.print(GlobalConstants.INPUT_INT_DATA + model.getLowerBoundary() + 
-					GlobalConstants.AND +  model.getUpperBoundary() + 
-					GlobalConstants.EQUALS);
+		view.print(GlobalConstants.INPUT_INT_DATA + model.getLowerBoundary() 
+				+ GlobalConstants.AND +  model.getUpperBoundary() 
+				+ GlobalConstants.EQUALS);
 		scannerValue = sc.next();
 		while (true) {
 			while (!checkStringForInt(scannerValue)) {
 				if (scannerValue.equals(GlobalConstants.EXIT_VALUE)) {
 					System.exit(0);
 				} else {
-					view.print(GlobalConstants.WRONG_INPUT_INT_DATA + 
-								model.getLowerBoundary() + GlobalConstants.AND +
-								model.getUpperBoundary() + GlobalConstants.EQUALS);
+					view.print(GlobalConstants.WRONG_INPUT_INT_DATA 
+							+ model.getLowerBoundary() + GlobalConstants.AND 
+							+ model.getUpperBoundary() + GlobalConstants.EQUALS);
 					scannerValue = sc.next();
 				}
 
@@ -79,10 +79,9 @@ public class Controller {
 	public int checkIsInputValueInBounds(Scanner sc) {
 		int value = inputIntValueWithScanner(sc);
 		while (value <= model.getLowerBoundary() || value >= model.getUpperBoundary()) {
-
-			view.print(GlobalConstants.WRONG_BOUNDARIES_INT_DATA + 
-						model.getLowerBoundary() + GlobalConstants.AND + 
-						model.getUpperBoundary() + GlobalConstants.EQUALS);
+			view.print(GlobalConstants.WRONG_BOUNDARIES_INT_DATA 
+					+ model.getLowerBoundary() + GlobalConstants.AND 
+					+ model.getUpperBoundary() + GlobalConstants.EQUALS);
 			value = inputIntValueWithScanner(sc);
 		}
 		return value;

@@ -40,7 +40,8 @@ public class MainTest {
 		
 		for (int i = 0; i < iterations; i++) {
 			model.setSecretValue(lowerBoundary, upperBoundary);
-			assertTrue((lowerBoundary < model.getSecretValue()) && (model.getSecretValue() < upperBoundary));
+			assertTrue((lowerBoundary < model.getSecretValue()) 
+					&& (model.getSecretValue() < upperBoundary));
 		}
 	}
 }
