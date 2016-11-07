@@ -21,6 +21,7 @@ public class View {
 	 * This method prints every element of ArrayList<Integer> in new line. 
 	 * It prints it in form: <Number of element> "try was" <Value of element>
 	 * and then terminate the line. 
+	 * 
 	 * @param tryList - The ArrayList<Integer> to be printed.
 	 */
 	public void printStatistic(ArrayList<Integer> tryList) {

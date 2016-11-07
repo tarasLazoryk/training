@@ -40,7 +40,8 @@ public class Model {
 	 * If it is bigger then secretValue - upperBoundary assigns value,
 	 * add this value to tryList and return false.
 	 * If it is smaller then secretValue - loweBoundary assigns value,
-	 * add this value to tryList and return false.		
+	 * add this value to tryList and return false.	
+	 * 	
 	 * @param value - the integer value to be checked.
 	 * @return true if value is equal to secretValue and false if it is not.
 	 */
@@ -74,6 +75,7 @@ public class Model {
 	}
 	/**
 	 * Sets the boundaries of the interval.
+	 * 
 	 * @param lowerBoundary - the lower boundary to be set.
 	 * @param upperBoundary - the upper boundary to be set.
 	 */

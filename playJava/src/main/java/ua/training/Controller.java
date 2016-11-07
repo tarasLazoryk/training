@@ -44,6 +44,7 @@ public class Controller {
 	 * It will ask user to write a number until he does it,
 	 * or until he would write "exit" - in this case the program 
 	 * will be stopped. 
+	 * 
 	 * @param sc -  the scanner from which value is gotten
 	 * @return integer value.
 	 */
@@ -73,6 +74,7 @@ public class Controller {
 	 * Asks to write the value which lies in the bounds.
 	 * Takes values from the scanner, and will ask to write
 	 * a value in the bounds until user does it.
+	 * 
 	 * @param sc - the scanner from which value is gotten.
 	 * @return return value which lies in the bounds.
 	 */
@@ -89,6 +91,7 @@ public class Controller {
 	
 	/**
 	 * Checks is the string can be converted into the integer.
+	 * 
 	 * @param string - string to be checked.
 	 * @return return true if string can be converted and false if it is not.
 	 */
