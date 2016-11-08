@@ -1,7 +1,5 @@
 package ua.training;
 
-import java.util.Scanner;
-
 /**
  * Controller class. It expresses controller in MVC pattern.
  * 

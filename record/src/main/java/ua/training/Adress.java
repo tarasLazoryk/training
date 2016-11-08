@@ -5,11 +5,11 @@ package ua.training;
 	 *
 	 */
 public class Adress {
-	private String Index;
-	private String City;
-	private String Street;
-	private int HouseNumber;
-	private int AppatamentNumber;
+	private String index;
+	private String city;
+	private String street;
+	private int houseNumber;
+	private int appatamentNumber;
 
 	public Adress() {
 	}
@@ -24,20 +24,20 @@ public class Adress {
 	 * @param HouseNumber expresses number of the house.
 	 * @param AppartamentNumber expresses number of the appartament.
 	 */
-	public Adress(String Index, String City, String Street, String HouseNumber,
-				String AppartamentNumber) {
-		this.Index = Index;
-		this.City = City;
-		this.Street = Street;
-		this.HouseNumber = Integer.parseInt(HouseNumber);
-		this.AppatamentNumber = Integer.parseInt(AppartamentNumber);
+	public Adress(String index, String city, String street, String houseNumber,
+				String appartamentNumber) {
+		this.index = index;
+		this.city = city;
+		this.street = street;
+		this.houseNumber = Integer.parseInt(houseNumber);
+		this.appatamentNumber = Integer.parseInt(appartamentNumber);
 	}
 
 	@Override
 	public String toString() {
-		return "Index=" + Index + ", City=" + City + ", Street=" + Street 
-				+ ", HouseNumber=" + HouseNumber + ", AppatamentNumber=" 
-				+ AppatamentNumber + "";
+		return "Index=" + index + ", City=" + city + ", Street=" + street 
+				+ ", HouseNumber=" + houseNumber + ", AppatamentNumber=" 
+				+ appatamentNumber + "";
 	}
 
 }
