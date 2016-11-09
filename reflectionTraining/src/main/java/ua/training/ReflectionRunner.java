@@ -8,17 +8,8 @@ import java.lang.reflect.Modifier;
 public class ReflectionRunner {
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		
-		
-		
-		
+				
 		View view = new View();
-		Date dt1 = new Date(1,1,2016);
-		Date dt2 = new Date();
-		dt1.setDay(2);
-		dt2.setDate(1,dt1.getMonth(), dt1.getYear());
-		view.print(dt1.getDay()+"");
-		view.print(dt2.getDay()+"");
 		Class clazz = Class.forName("ua.training.RecordBook");
 		Object instance = (RecordBook) clazz.newInstance();
 
@@ -55,7 +46,7 @@ public class ReflectionRunner {
 		for (Method method : clazz2.getMethods()) {
 			MyAnnotation cool = method.getAnnotation(MyAnnotation.class);
 			if (cool != null && cool.enabled()) {
-				view.print("Call by " + MyAnnotation.class.getName() + " " + method.invoke(instance));
+				view.print("Call by " + MyAnnotation.class.getName() + " " + method.invoke(instance2));
 			}
 		}
 		int m2 = clazz2.getModifiers();
