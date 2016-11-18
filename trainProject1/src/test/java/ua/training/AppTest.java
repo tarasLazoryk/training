@@ -86,7 +86,7 @@ public class AppTest extends TestCase {
 		Train train = new Train(5, locomotive, railwayCarriages);
 		train.sort();
 		for (int i = 0; i < sortedRailwayCarriages.size(); i++) {
-			assertTrue(train.getRailwayCarriages().get(i).toString().equals(sortedRailwayCarriages.get(i).toString()));
+			assertTrue(train.getRailwayCarriages().equals(sortedRailwayCarriages));
 		}
 
 	}

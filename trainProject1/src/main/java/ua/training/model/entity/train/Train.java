@@ -11,14 +11,14 @@ import ua.training.model.entity.locomotive.Locomotive;
 
 public class Train {
 	private Integer trainNumber;
-	private Locomotive frontLocomotive;
+	private Locomotive locomotive;
 	private List<RailwayCarriage> railwayCarriages = new ArrayList<RailwayCarriage>();
 	
 	public Train(Integer trainNumber, Locomotive frontLocomotive,
 			List<RailwayCarriage> railwayCarriages) {
 		super();
 		this.trainNumber = trainNumber;
-		this.frontLocomotive = frontLocomotive;
+		this.locomotive = frontLocomotive;
 		this.railwayCarriages = railwayCarriages;
 	}
 	
@@ -31,11 +31,11 @@ public class Train {
 	}
 
 	public Locomotive getFrontLocomotive() {
-		return frontLocomotive;
+		return locomotive;
 	}
 
 	public void setFrontLocomotive(Locomotive frontLocomotive) {
-		this.frontLocomotive = frontLocomotive;
+		this.locomotive = frontLocomotive;
 	}
 
 	public List<RailwayCarriage> getRailwayCarriages() {
@@ -131,7 +131,7 @@ public class Train {
 	@Override
 	public String toString() {
 
-		return "Train [trainNumber=" + trainNumber + ", frontLocomotive=" + frontLocomotive + ", railwayCarriages=" + railwayCarriages;
+		return "Train [trainNumber=" + trainNumber + ", Locomotive=" + locomotive + ", railwayCarriages=" + railwayCarriages;
 	}
 
 }

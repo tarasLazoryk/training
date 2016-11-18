@@ -32,4 +32,26 @@ public class FreightCarriage implements RailwayCarriage {
 		return amountOfPlaces;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + amountOfPlaces;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FreightCarriage other = (FreightCarriage) obj;
+		if (amountOfPlaces != other.amountOfPlaces)
+			return false;
+		return true;
+	}	
+	
 }

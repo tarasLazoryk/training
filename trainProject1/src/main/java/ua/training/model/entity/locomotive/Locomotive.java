@@ -28,4 +28,10 @@ public class Locomotive {
 		this.motorType = MotorType.valueOf(motorType);
 	}
 
+	@Override
+	public String toString() {
+		return "Locomotive [motorType=" + motorType + "]";
+	}
+	
+	
 }
