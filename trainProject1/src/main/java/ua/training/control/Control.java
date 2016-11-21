@@ -3,10 +3,11 @@ package ua.training.control;
 import java.util.ArrayList;
 import java.util.List;
 
-import ua.training.model.Model;
+import ua.training.control.init.InitCarriages;
 import ua.training.model.entity.carriages.ComfortClass;
 import ua.training.model.entity.carriages.FreightCarriage;
 import ua.training.model.entity.carriages.PassangerCarriage;
+import ua.training.model.entity.carriages.PassangerCarriagesComparator;
 import ua.training.model.entity.carriages.RailwayCarriage;
 import ua.training.model.entity.locomotive.Locomotive;
 import ua.training.model.entity.locomotive.MotorType;
@@ -26,7 +27,7 @@ public class Control {
 	 *
 	 * @see Model
 	 */
-	private Model model;
+	private Train model;
 
 	/**
 	 * Reference to view part
@@ -38,36 +39,28 @@ public class Control {
 	/**
 	 * Constructor
 	 *
-	 * @param model
-	 *            reference to model
-	 * @param view
-	 *            reference to view
+	 * @param model reference to model
+	 * @param view reference to view
 	 */
-	public Control(Model model, View view) {
+	public Control(Train model, View view) {
 		this.model = model;
 		this.view = view;
 	}
 
 	public void processUser() {
-		Locomotive locomotive = new Locomotive(MotorType.Electric);
+		/*train instance initialization*/
+		Locomotive locomotive = new Locomotive(MotorType.Electric, 5, 10.,10.);
 		List<RailwayCarriage> railwayCarriages = new ArrayList<RailwayCarriage>();
-		railwayCarriages.add(new PassangerCarriage("FirstClass"));
-		railwayCarriages.add(new PassangerCarriage("FirstClass"));
-		railwayCarriages.add(new PassangerCarriage("SecondClass"));
-		railwayCarriages.add(new PassangerCarriage("ThirdClass"));
-		railwayCarriages.add(new PassangerCarriage("ThirdClass"));
-		railwayCarriages.add(new FreightCarriage(200));
-		railwayCarriages.add(new PassangerCarriage("SecondClass"));
-		railwayCarriages.add(new FreightCarriage(100));
-		/* Inizialization of train instance */
-		Train train = new Train(5, locomotive, railwayCarriages);
-
-		view.printMessage(View.UNSORTED_CARRIAGES + train);
-		train.sort();
-		view.printMessage(View.UNSORTED_CARRIAGES + train);
+		railwayCarriages = InitCarriages.getRailwayCarriagesList();
+		model = new Train(5, locomotive, railwayCarriages);
+		List<PassangerCarriage> sortedList = model.sort(new PassangerCarriagesComparator<PassangerCarriage>());
+		view.printMessage(View.SORTED_CARRIAGES + sortedList);
+		view.printMessage(View.UNSORTED_CARRIAGES + model.getPassangerCarriages());
+		
 		view.printMessage(View.PASSENGER_CARRIAGES_IN_BOUNDS 
-						+ train.getPassangerCarriagesInBounds(0, 50));
-		view.printMessage(View.AMOUNT_OF_PLACES + train.getSummaryAmountOfPlaces());
+						+ model.getPassangerCarriagesInBounds(0, 50));
+		
+		view.printMessage(View.AMOUNT_OF_PLACES + model.getSummaryAmountOfPlaces());
 
 	}
 	

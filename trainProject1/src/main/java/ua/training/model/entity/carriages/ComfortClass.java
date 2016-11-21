@@ -23,5 +23,5 @@ public enum ComfortClass {
 	public int getAmountOfPlaces() {
 		return amountOfPlaces;
 	}
-
+		
 }

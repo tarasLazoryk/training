@@ -2,26 +2,47 @@ package ua.training.model.entity.train;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import ua.training.model.entity.carriages.FreightCarriage;
 import ua.training.model.entity.carriages.PassangerCarriage;
+import ua.training.model.entity.carriages.PassangerCarriagesComparator;
 import ua.training.model.entity.carriages.RailwayCarriage;
 import ua.training.model.entity.locomotive.Locomotive;
-
+/**
+ * expresses train. stands as a model in mvs pattern.
+ * 
+ * @author taras
+ *
+ */
 public class Train {
-	private Integer trainNumber;
-	private Locomotive locomotive;
-	private List<RailwayCarriage> railwayCarriages = new ArrayList<RailwayCarriage>();
 	
-	public Train(Integer trainNumber, Locomotive frontLocomotive,
-			List<RailwayCarriage> railwayCarriages) {
+	/**
+	 * number of train
+	 */
+	private Integer trainNumber;
+	
+	/**
+	 * trains locomotive
+	 */
+	private Locomotive locomotive;
+	
+	/**
+	 * Passanger and freight carriages
+	 */
+	private List<RailwayCarriage> railwayCarriages = new ArrayList<RailwayCarriage>();
+
+	public Train(){
+		
+	}
+	public Train(Integer trainNumber, Locomotive frontLocomotive, List<RailwayCarriage> railwayCarriages) {
 		super();
 		this.trainNumber = trainNumber;
 		this.locomotive = frontLocomotive;
 		this.railwayCarriages = railwayCarriages;
 	}
-	
+
 	public Integer getTrainNumber() {
 		return trainNumber;
 	}
@@ -45,43 +66,44 @@ public class Train {
 	public void setRailwayCarriages(List<RailwayCarriage> railwayCarriages) {
 		this.railwayCarriages = railwayCarriages;
 	}
-	
+
 	/**
 	 * Sorts the PassengerCarriage in the train by comfort class.
-	 * railwayCarriages consist of freight and passanger carriages,
-	 * freight can't be sorted by comfort class.
-	 * As a result of this method, first carriages will be passanger,
-	 * and they will be sorted, after them all freight carriage will go.
+	 * railwayCarriages consist of freight and passanger carriages, freight
+	 * can't be sorted by comfort class. As a result of this method, first
+	 * carriages will be passanger, and they will be sorted, after them all
+	 * freight carriage will go.
 	 * 
 	 */
-	public void sort() {
-		List<FreightCarriage> freightCarriages = getFreightCarriages();
+	public ArrayList<PassangerCarriage> sort(PassangerCarriagesComparator<PassangerCarriage> comparator) {
+		ArrayList<PassangerCarriage> result = new ArrayList<>();
+		// List<FreightCarriage> freightCarriages = getFreightCarriages();
 		List<PassangerCarriage> passangerCarriages = getPassangerCarriages();
-		railwayCarriages.clear();
-		Collections.sort(passangerCarriages);
-		railwayCarriages.addAll(passangerCarriages);
-		railwayCarriages.addAll(freightCarriages);
+		passangerCarriages.sort(comparator);
+		result.addAll(passangerCarriages);
+		// result.addAll(freightCarriages);
+		return result;
 	}
-	
+
 	/**
 	 * Gets summary amoun of passenger and freight places.
 	 * 
 	 * @return summary amount of places.
 	 */
-	public int getSummaryAmountOfPlaces(){
+	public int getSummaryAmountOfPlaces() {
 		int summaryAmountOfPlaces = 0;
 		for (RailwayCarriage railwayCarriage : railwayCarriages) {
 			summaryAmountOfPlaces += railwayCarriage.getAmountOfPlaces();
 		}
 		return summaryAmountOfPlaces;
 	}
-	
+
 	/**
 	 * Gets obly freightCarriages from railwayCarraiages.
 	 * 
 	 * @return List of freightCarriage
 	 */
-	private List<FreightCarriage> getFreightCarriages(){
+	private List<FreightCarriage> getFreightCarriages() {
 		List<FreightCarriage> freightCarriages = new ArrayList<FreightCarriage>();
 		for (RailwayCarriage railwayCarriage : railwayCarriages) {
 			if (railwayCarriage instanceof FreightCarriage) {
@@ -90,13 +112,13 @@ public class Train {
 		}
 		return freightCarriages;
 	}
-	
+
 	/**
 	 * Gets obly passangerCarriages from railwayCarraiages.
 	 * 
 	 * @return List of passangerCarriage
 	 */
-	private List<PassangerCarriage> getPassangerCarriages(){
+	public List<PassangerCarriage> getPassangerCarriages() {
 		List<PassangerCarriage> passangerCarriages = new ArrayList<PassangerCarriage>();
 		for (RailwayCarriage railwayCarriage : railwayCarriages) {
 			if (railwayCarriage instanceof PassangerCarriage) {
@@ -105,25 +127,23 @@ public class Train {
 		}
 		return passangerCarriages;
 	}
-	
+
 	/**
-	 * /**
-	 * Gets obly passangerCarriages from railwayCarraiages, which
-	 * are in bound.
+	 * /** Gets obly passangerCarriages from railwayCarraiages, which are in
+	 * bound.
 	 * 
-	 * @param minBound - min bound
-	 * @param maxBound -max bound
-	 * @return List of passangerCarriage in bounds	
+	 * @param minBound  min bound
+	 * @param maxBound  max bound
+	 * @return List of passangerCarriage in bounds
 	 */
 	public List<PassangerCarriage> getPassangerCarriagesInBounds(int minBound, int maxBound) {
 		List<PassangerCarriage> passangerCarriages = getPassangerCarriages();
-		List<PassangerCarriage> passangerCarriagesInBounds = new ArrayList<PassangerCarriage>();
+		List<PassangerCarriage> passangerCarriagesInBounds = new ArrayList<>();
 		for (PassangerCarriage passangerCarriage : passangerCarriages) {
 			if ((passangerCarriage.getAmountOfPlaces() > minBound)
 					&& (passangerCarriage.getAmountOfPlaces() < maxBound)) {
 				passangerCarriagesInBounds.add(passangerCarriage);
-			}			
-			
+			}
 		}
 		return passangerCarriagesInBounds;
 	}
@@ -131,7 +151,8 @@ public class Train {
 	@Override
 	public String toString() {
 
-		return "Train [trainNumber=" + trainNumber + ", Locomotive=" + locomotive + ", railwayCarriages=" + railwayCarriages;
+		return "Train [trainNumber=" + trainNumber + ", Locomotive=" + locomotive 
+				+ ", railwayCarriages="	+ railwayCarriages;
 	}
 
 }

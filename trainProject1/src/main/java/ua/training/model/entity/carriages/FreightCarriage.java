@@ -6,15 +6,15 @@ package ua.training.model.entity.carriages;
  * @author taras
  *
  */
-public class FreightCarriage implements RailwayCarriage {
+public class FreightCarriage extends RailwayCarriage {
 	
 	/**
 	 * Amount of places for cargo
 	 */
 	private int amountOfPlaces;
-	
-	
-	public FreightCarriage(int amountOfPlaces) {
+		
+	public FreightCarriage(int amountOfWheelPairs, double weight, int amountOfPlaces) {
+		super(amountOfWheelPairs, weight);
 		this.amountOfPlaces = amountOfPlaces;
 	}
 	
@@ -22,9 +22,15 @@ public class FreightCarriage implements RailwayCarriage {
 		this.amountOfPlaces = amountOfPlaces;
 	}
 	
+	
+
+	
+
 	@Override
 	public String toString() {
-		return "FreightCarriage [amountOfPlaces=" + amountOfPlaces + "]";
+		return "FreightCarriage [amountOfPlaces=" + amountOfPlaces 
+				+ ", amountOfWheelPairs=" + getAmountOfWheelPairs() 
+				+ ", weight=" + getWeight() + "]";
 	}
 
 	public int getAmountOfPlaces() {

@@ -6,29 +6,40 @@ package ua.training.model.entity.carriages;
  * @author taras
  *
  */
-public class PassangerCarriage implements RailwayCarriage, Comparable {
-	
+public class PassangerCarriage extends RailwayCarriage {
+
 	/**
 	 * Amount of places for people.
 	 */
 	private int amountOfPlaces;
-	
+
 	/**
 	 * Comfort class of the carriage.
 	 */
 	private ComfortClass comfortType;
-	
-	public PassangerCarriage(String comfortType) {
+
+	public PassangerCarriage(int amountOfWheelPairs, double weight, String comfortType) {
+		super(amountOfWheelPairs, weight);
 		this.amountOfPlaces = ComfortClass.valueOf(comfortType).getAmountOfPlaces();
 		this.comfortType = ComfortClass.valueOf(comfortType);
+	}
+
+	public PassangerCarriage(int amountOfWheelPairs, double weight, ComfortClass comfortType) {
+		super(amountOfWheelPairs, weight);
+		this.amountOfPlaces = comfortType.getAmountOfPlaces();
+		this.comfortType = comfortType;
 	}
 
 	public int getAmountOfPlaces() {
 		return amountOfPlaces;
 	}
-	
+
 	public ComfortClass getComfortType() {
 		return comfortType;
+	}
+
+	public void setAmountOfPlaces(int amountOfPlaces) {
+		this.amountOfPlaces = amountOfPlaces;
 	}
 
 	public void setComfortType(ComfortClass comfortType) {
@@ -41,16 +52,9 @@ public class PassangerCarriage implements RailwayCarriage, Comparable {
 
 	@Override
 	public String toString() {
-		return "PassangerCarriage [amountOfPlaces=" + amountOfPlaces + ", comfortType=" + comfortType + "]";
-	}
-
-	public int compareTo(Object obj) {
-		PassangerCarriage entry = (PassangerCarriage) obj;
-		int result = comfortType.compareTo(entry.getComfortType());
-		if (result != 0) {
-			return result;
-		}
-		return 0;
+		return "PassangerCarriage [amountOfPlaces=" + amountOfPlaces 
+				+ ", comfortType=" + comfortType + ", amountOfWheelPairs=" 
+				+ getAmountOfWheelPairs() + ", weight=" + getWeight() + "]";
 	}
 
 	@Override
@@ -77,6 +81,5 @@ public class PassangerCarriage implements RailwayCarriage, Comparable {
 			return false;
 		return true;
 	}
-	
-	
+
 }
