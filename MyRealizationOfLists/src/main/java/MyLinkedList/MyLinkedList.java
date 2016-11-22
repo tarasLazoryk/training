@@ -7,16 +7,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-
-
 public class MyLinkedList<E> implements List<E> {
 	private int size = 0;
 	private int modCount;
-   
-    private Node<E> first;
-    private Node<E> last;
-    public MyLinkedList() {
-    }
+
+	private Node<E> first;
+	private Node<E> last;
+
+	public MyLinkedList() {
+	}
 
 	private static class Node<E> {
 		E item;
@@ -29,111 +28,116 @@ public class MyLinkedList<E> implements List<E> {
 			this.prev = prev;
 		}
 	}
-	 void linkBefore(E e, Node<E> succ) {
-	        // assert succ != null;
-	        final Node<E> pred = succ.prev;
-	        final Node<E> newNode = new Node<>(pred, e, succ);
-	        succ.prev = newNode;
-	        if (pred == null)
-	            first = newNode;
-	        else
-	            pred.next = newNode;
-	        size++;
-	        modCount++;
-	    }
+
+	void linkBefore(E e, Node<E> succ) {
+		// assert succ != null;
+		final Node<E> pred = succ.prev;
+		final Node<E> newNode = new Node<>(pred, e, succ);
+		succ.prev = newNode;
+		if (pred == null)
+			first = newNode;
+		else
+			pred.next = newNode;
+		size++;
+		modCount++;
+	}
+
 	private void linkFirst(E e) {
-        final Node<E> f = first;
-        final Node<E> newNode = new Node<>(null, e, f);
-        first = newNode;
-        if (f == null)
-            last = newNode;
-        else
-            f.prev = newNode;
-        size++;
-        modCount++;
-    }
+		final Node<E> f = first;
+		final Node<E> newNode = new Node<>(null, e, f);
+		first = newNode;
+		if (f == null)
+			last = newNode;
+		else
+			f.prev = newNode;
+		size++;
+		modCount++;
+	}
 
-    void linkLast(E e) {
-        final Node<E> l = last;
-        final Node<E> newNode = new Node<>(l, e, null);
-        last = newNode;
-        if (l == null)
-            first = newNode;
-        else
-            l.next = newNode;
-        size++;
-        modCount++;
-    }
-    E unlink(Node<E> x) {
-        // assert x != null;
-        final E element = x.item;
-        final Node<E> next = x.next;
-        final Node<E> prev = x.prev;
+	void linkLast(E e) {
+		final Node<E> l = last;
+		final Node<E> newNode = new Node<>(l, e, null);
+		last = newNode;
+		if (l == null)
+			first = newNode;
+		else
+			l.next = newNode;
+		size++;
+		modCount++;
+	}
 
-        if (prev == null) {
-            first = next;
-        } else {
-            prev.next = next;
-            x.prev = null;
-        }
+	E unlink(Node<E> x) {
+		// assert x != null;
+		final E element = x.item;
+		final Node<E> next = x.next;
+		final Node<E> prev = x.prev;
 
-        if (next == null) {
-            last = prev;
-        } else {
-            next.prev = prev;
-            x.next = null;
-        }
+		if (prev == null) {
+			first = next;
+		} else {
+			prev.next = next;
+			x.prev = null;
+		}
 
-        x.item = null;
-        size--;
-        modCount++;
-        return element;
-    }
-    
-    private void checkPositionIndex(int index) {
-        if (!isPositionIndex(index))
-            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
-    }
-    private void checkElementIndex(int index) {
-        if (!isElementIndex(index))
-            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
-    }
-    private boolean isElementIndex(int index) {
-        return index >= 0 && index < size;
-    }
+		if (next == null) {
+			last = prev;
+		} else {
+			next.prev = prev;
+			x.next = null;
+		}
 
-    private boolean isPositionIndex(int index) {
-        return index >= 0 && index <= size;
-    }
-    private String outOfBoundsMsg(int index) {
-        return "Index: "+index+", Size: "+size;
-    }
-    
-    Node<E> node(int index) {
-        // assert isElementIndex(index);
+		x.item = null;
+		size--;
+		modCount++;
+		return element;
+	}
 
-        if (index < (size >> 1)) {
-            Node<E> x = first;
-            for (int i = 0; i < index; i++)
-                x = x.next;
-            return x;
-        } else {
-            Node<E> x = last;
-            for (int i = size - 1; i > index; i--)
-                x = x.prev;
-            return x;
-        }
-    }
-    
-    public void addFirst(E e) {
-        linkFirst(e);
-    }
+	private void checkPositionIndex(int index) {
+		if (!isPositionIndex(index))
+			throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+	}
 
-   
-    public void addLast(E e) {
-        linkLast(e);
-    } 
-    
+	private void checkElementIndex(int index) {
+		if (!isElementIndex(index))
+			throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+	}
+
+	private boolean isElementIndex(int index) {
+		return index >= 0 && index < size;
+	}
+
+	private boolean isPositionIndex(int index) {
+		return index >= 0 && index <= size;
+	}
+
+	private String outOfBoundsMsg(int index) {
+		return "Index: " + index + ", Size: " + size;
+	}
+
+	Node<E> node(int index) {
+		// assert isElementIndex(index);
+
+		if (index < (size >> 1)) {
+			Node<E> x = first;
+			for (int i = 0; i < index; i++)
+				x = x.next;
+			return x;
+		} else {
+			Node<E> x = last;
+			for (int i = size - 1; i > index; i--)
+				x = x.prev;
+			return x;
+		}
+	}
+
+	public void addFirst(E e) {
+		linkFirst(e);
+	}
+
+	public void addLast(E e) {
+		linkLast(e);
+	}
+
 	@Override
 	public int size() {
 		// TODO Auto-generated method stub
@@ -143,73 +147,74 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public boolean add(E e) {
 		linkLast(e);
-        return true;
+		return true;
 	}
-	
+
 	@Override
 	public void add(int index, E element) {
-		 checkPositionIndex(index);
+		checkPositionIndex(index);
 
-	        if (index == size)
-	            linkLast(element);
-	        else
-	            linkBefore(element, node(index));
+		if (index == size)
+			linkLast(element);
+		else
+			linkBefore(element, node(index));
 
 	}
+
 	@Override
 	public boolean remove(Object o) {
-        if (o == null) {
-            for (Node<E> x = first; x != null; x = x.next) {
-                if (x.item == null) {
-                    unlink(x);
-                    return true;
-                }
-            }
-        } else {
-            for (Node<E> x = first; x != null; x = x.next) {
-                if (o.equals(x.item)) {
-                    unlink(x);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-	
+		if (o == null) {
+			for (Node<E> x = first; x != null; x = x.next) {
+				if (x.item == null) {
+					unlink(x);
+					return true;
+				}
+			}
+		} else {
+			for (Node<E> x = first; x != null; x = x.next) {
+				if (o.equals(x.item)) {
+					unlink(x);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public E remove(int index) {
 		checkElementIndex(index);
-        return unlink(node(index));
+		return unlink(node(index));
 	}
-	
+
 	@Override
 	public void clear() {
-		for (Node<E> x = first; x != null; ) {
-            Node<E> next = x.next;
-            x.item = null;
-            x.next = null;
-            x.prev = null;
-            x = next;
-        }
-        first = last = null;
-        size = 0;
-        modCount++;
+		for (Node<E> x = first; x != null;) {
+			Node<E> next = x.next;
+			x.item = null;
+			x.next = null;
+			x.prev = null;
+			x = next;
+		}
+		first = last = null;
+		size = 0;
+		modCount++;
 
 	}
 
 	@Override
 	public E get(int index) {
 		checkElementIndex(index);
-        return node(index).item;
+		return node(index).item;
 	}
 
 	@Override
 	public E set(int index, E element) {
-		 checkElementIndex(index);
-	        Node<E> x = node(index);
-	        E oldVal = x.item;
-	        x.item = element;
-	        return oldVal;
+		checkElementIndex(index);
+		Node<E> x = node(index);
+		E oldVal = x.item;
+		x.item = element;
+		return oldVal;
 	}
 
 	@Override
