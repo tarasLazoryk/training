@@ -72,9 +72,8 @@ public class Control {
 	 * and false if not
 	 */
 	public boolean checkComfortClass(String value) {
-		ComfortClass comfortClass;
 		try {
-			comfortClass = ComfortClass.valueOf(value);
+			ComfortClass.valueOf(value);
 			return true;
 		} catch (IllegalArgumentException ex) {
 			return false;
@@ -89,9 +88,8 @@ public class Control {
 	 * and false if not
 	 */
 	public boolean checkMotorType(String value) {
-		MotorType motorType;
 		try {
-			motorType = MotorType.valueOf(value);
+			MotorType.valueOf(value);
 			return true;
 		} catch (IllegalArgumentException ex) {
 			return false;

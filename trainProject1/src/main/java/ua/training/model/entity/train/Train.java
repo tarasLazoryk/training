@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ua.training.model.entity.carriages.FreightCarriage;
 import ua.training.model.entity.carriages.PassangerCarriage;
@@ -91,11 +92,7 @@ public class Train {
 	 * @return summary amount of places.
 	 */
 	public int getSummaryAmountOfPlaces() {
-		int summaryAmountOfPlaces = 0;
-		for (RailwayCarriage railwayCarriage : railwayCarriages) {
-			summaryAmountOfPlaces += railwayCarriage.getAmountOfPlaces();
-		}
-		return summaryAmountOfPlaces;
+		return railwayCarriages.stream().mapToInt(RailwayCarriage::getAmountOfPlaces).sum();		
 	}
 
 	/**
@@ -129,7 +126,7 @@ public class Train {
 	}
 
 	/**
-	 * /** Gets obly passangerCarriages from railwayCarraiages, which are in
+	 * /** Gets only passangerCarriages from railwayCarraiages, which are in
 	 * bound.
 	 * 
 	 * @param minBound  min bound
@@ -138,14 +135,8 @@ public class Train {
 	 */
 	public List<PassangerCarriage> getPassangerCarriagesInBounds(int minBound, int maxBound) {
 		List<PassangerCarriage> passangerCarriages = getPassangerCarriages();
-		List<PassangerCarriage> passangerCarriagesInBounds = new ArrayList<>();
-		for (PassangerCarriage passangerCarriage : passangerCarriages) {
-			if ((passangerCarriage.getAmountOfPlaces() > minBound)
-					&& (passangerCarriage.getAmountOfPlaces() < maxBound)) {
-				passangerCarriagesInBounds.add(passangerCarriage);
-			}
-		}
-		return passangerCarriagesInBounds;
+		return passangerCarriages.stream().filter((e)->((minBound<=e.getAmountOfPlaces()) && 
+				(e.getAmountOfPlaces() <=maxBound))).collect(Collectors.toList());
 	}
 
 	@Override
