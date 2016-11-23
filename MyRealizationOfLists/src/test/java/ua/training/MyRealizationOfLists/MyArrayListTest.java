@@ -13,12 +13,10 @@ import java.util.*;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by oleksij.onysymchuk@gmail on 19.11.2016.
- */
 public class MyArrayListTest {
 	private List<Integer> testMyArrayList = new MyLinkedList<>();
-	LinkedList<Integer>s = new LinkedList<>();
+	LinkedList<Integer> s = new LinkedList<>();
+
 	@Before
 	public void init() {
 		testMyArrayList.add(5);
@@ -79,13 +77,14 @@ public class MyArrayListTest {
 		}
 	}
 
-	/*@Test
-	public void testListIterator() throws Exception {
-		ListIterator<Integer> iterator = testMyArrayList.listIterator();
-		assertTrue("hasNext()", iterator.hasNext());
-		assertFalse("hasPrevious", iterator.hasPrevious());
-
-	}*/
+	/*
+	 * @Test public void testListIterator() throws Exception {
+	 * ListIterator<Integer> iterator = testMyArrayList.listIterator();
+	 * assertTrue("hasNext()", iterator.hasNext()); assertFalse("hasPrevious",
+	 * iterator.hasPrevious());
+	 * 
+	 * }
+	 */
 
 	@Test(expected = NullPointerException.class)
 	public void testListIteratorException() throws Exception {
