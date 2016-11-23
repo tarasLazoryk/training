@@ -121,7 +121,7 @@ public class MyLinkedList<E> implements List<E> {
 	Node<E> node(int index) {
 		// assert isElementIndex(index);
 
-		if (index < (size /2)) {
+		if (index < (size / 2)) {
 			Node<E> x = first;
 			for (int i = 0; i < index; i++)
 				x = x.next;
