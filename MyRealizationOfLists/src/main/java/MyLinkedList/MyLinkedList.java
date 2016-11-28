@@ -119,8 +119,6 @@ public class MyLinkedList<E> implements List<E> {
 	}
 
 	Node<E> node(int index) {
-		// assert isElementIndex(index);
-
 		if (index < (size / 2)) {
 			Node<E> x = first;
 			for (int i = 0; i < index; i++)
@@ -230,6 +228,22 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public boolean contains(Object o) {
 		// TODO Auto-generated method stub
+		Node<E> current = first;
+		if (o == null) {
+			while (current != null) {
+				if (current.item == null) {
+					return true;
+				}
+				current = current.next;
+			}
+		} else {
+			while (current != null) {
+				if (o.equals(current.item)) {
+					return true;
+				}
+				current = current.next;
+			}
+		}
 		return false;
 	}
 
@@ -302,7 +316,7 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public ListIterator<E> listIterator(int index) {
 		checkPositionIndex(index);
-        return new ListItr(index);
+		return new ListItr(index);
 	}
 
 	@Override
@@ -310,104 +324,104 @@ public class MyLinkedList<E> implements List<E> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	private class ListItr implements ListIterator<E> {
-        private Node<E> lastReturned;
-        private Node<E> next;
-        private int nextIndex;
-        private int expectedModCount = modCount;
+		private Node<E> lastReturned;
+		private Node<E> next;
+		private int nextIndex;
+		private int expectedModCount = modCount;
 
-        ListItr(int index) {
-            // assert isPositionIndex(index);
-            next = (index == size) ? null : node(index);
-            nextIndex = index;
-        }
+		ListItr(int index) {
+			// assert isPositionIndex(index);
+			next = (index == size) ? null : node(index);
+			nextIndex = index;
+		}
 
-        public boolean hasNext() {
-            return nextIndex < size;
-        }
+		public boolean hasNext() {
+			return nextIndex < size;
+		}
 
-        public E next() {
-            checkForComodification();
-            if (!hasNext())
-                throw new NoSuchElementException();
+		public E next() {
+			checkForComodification();
+			if (!hasNext())
+				throw new NoSuchElementException();
 
-            lastReturned = next;
-            next = next.next;
-            nextIndex++;
-            return lastReturned.item;
-        }
+			lastReturned = next;
+			next = next.next;
+			nextIndex++;
+			return lastReturned.item;
+		}
 
-        public boolean hasPrevious() {
-            return nextIndex > 0;
-        }
+		public boolean hasPrevious() {
+			return nextIndex > 0;
+		}
 
-        public E previous() {
-            checkForComodification();
-            if (!hasPrevious())
-                throw new NoSuchElementException();
+		public E previous() {
+			checkForComodification();
+			if (!hasPrevious())
+				throw new NoSuchElementException();
 
-            lastReturned = next = (next == null) ? last : next.prev;
-            nextIndex--;
-            return lastReturned.item;
-        }
+			lastReturned = next = (next == null) ? last : next.prev;
+			nextIndex--;
+			return lastReturned.item;
+		}
 
-        public int nextIndex() {
-            return nextIndex;
-        }
+		public int nextIndex() {
+			return nextIndex;
+		}
 
-        public int previousIndex() {
-            return nextIndex - 1;
-        }
+		public int previousIndex() {
+			return nextIndex - 1;
+		}
 
-        public void remove() {
-            checkForComodification();
-            if (lastReturned == null)
-                throw new IllegalStateException();
+		public void remove() {
+			checkForComodification();
+			if (lastReturned == null)
+				throw new IllegalStateException();
 
-            Node<E> lastNext = lastReturned.next;
-            unlink(lastReturned);
-            if (next == lastReturned)
-                next = lastNext;
-            else
-                nextIndex--;
-            lastReturned = null;
-            expectedModCount++;
-        }
+			Node<E> lastNext = lastReturned.next;
+			unlink(lastReturned);
+			if (next == lastReturned)
+				next = lastNext;
+			else
+				nextIndex--;
+			lastReturned = null;
+			expectedModCount++;
+		}
 
-        public void set(E e) {
-            if (lastReturned == null)
-                throw new IllegalStateException();
-            checkForComodification();
-            lastReturned.item = e;
-        }
+		public void set(E e) {
+			if (lastReturned == null)
+				throw new IllegalStateException();
+			checkForComodification();
+			lastReturned.item = e;
+		}
 
-        public void add(E e) {
-            checkForComodification();
-            lastReturned = null;
-            if (next == null)
-                linkLast(e);
-            else
-                linkBefore(e, next);
-            nextIndex++;
-            expectedModCount++;
-        }
+		public void add(E e) {
+			checkForComodification();
+			lastReturned = null;
+			if (next == null)
+				linkLast(e);
+			else
+				linkBefore(e, next);
+			nextIndex++;
+			expectedModCount++;
+		}
 
-        public void forEachRemaining(Consumer<? super E> action) {
-            Objects.requireNonNull(action);
-            while (modCount == expectedModCount && nextIndex < size) {
-                action.accept(next.item);
-                lastReturned = next;
-                next = next.next;
-                nextIndex++;
-            }
-            checkForComodification();
-        }
+		public void forEachRemaining(Consumer<? super E> action) {
+			Objects.requireNonNull(action);
+			while (modCount == expectedModCount && nextIndex < size) {
+				action.accept(next.item);
+				lastReturned = next;
+				next = next.next;
+				nextIndex++;
+			}
+			checkForComodification();
+		}
 
-        final void checkForComodification() {
-            if (modCount != expectedModCount)
-                throw new ConcurrentModificationException();
-        }
-    }
+		final void checkForComodification() {
+			if (modCount != expectedModCount)
+				throw new ConcurrentModificationException();
+		}
+	}
 
 }
